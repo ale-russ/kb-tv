@@ -1,0 +1,1 @@
+/home/user/smart_tv_app/k_tv/build/app/intermediates/cxx/Debug/4s6n658y/obj/x86
