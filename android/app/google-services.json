@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "99618230636-0mepoj359vsi7j1phftbvlk33jb7ohg6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.k_tv",
+            "certificate_hash": "04c78026468f10d74d3ab9f262bcbcefc6317c13"
+          }
+        },
+        {
           "client_id": "99618230636-a1eoce53aq2ap6lhtv1dkihrdop3he2v.apps.googleusercontent.com",
           "client_type": 3
         }

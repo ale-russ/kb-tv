@@ -22,6 +22,7 @@ dependencies:
   riverpod: ^2.6.1
   flutter_riverpod: ^2.6.1
   google_sign_in: ^6.2.2
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:
