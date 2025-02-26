@@ -2,10 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:k_tv/focusable.dart';
-import 'package:k_tv/home.dart';
 import 'package:k_tv/providers/auth_provider.dart';
-import 'package:k_tv/screens/qr_login_screen.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
@@ -42,8 +41,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     if (user != null) {
       WidgetsBinding.instance.addPersistentFrameCallback((_) {
         if (mounted) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeScreen()));
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => HomeScreen()));
+          context.go('/home');
         }
       });
     }
@@ -107,10 +107,13 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => QrLoginScreen())),
+                    onPressed: () => context.push("/qr-login"),
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => QrLoginScreen(),
+                    //   ),
+                    // ),
                     icon: Icon(
                       Icons.login,
                       color: Colors.white,

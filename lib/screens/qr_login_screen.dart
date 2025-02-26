@@ -1,15 +1,15 @@
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:k_tv/home.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QrLoginScreen extends ConsumerStatefulWidget {
-  const QrLoginScreen({super.key});
+  const QrLoginScreen({super.key, String? sessionId});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _QrLoginScreenState();
@@ -25,6 +25,7 @@ class _QrLoginScreenState extends ConsumerState<QrLoginScreen> {
   }
 
   Future<void> _generateSession() async {
+    sessionId = _generateRandomId();
     await FirebaseFirestore.instance
         .collection('tv_sessions')
         .doc(sessionId)
@@ -39,6 +40,7 @@ class _QrLoginScreenState extends ConsumerState<QrLoginScreen> {
         .doc(sessionId)
         .snapshots()
         .listen((snapshots) {
+      developer.log("userId: ${snapshots.data()?['userId']}");
       if (snapshots.exists && snapshots.data()?['userId'] != null) {
         _qrCodeSignIn(snapshots.data()?['userId']);
       }
@@ -54,18 +56,26 @@ class _QrLoginScreenState extends ConsumerState<QrLoginScreen> {
   }
 
   Future<void> _qrCodeSignIn(String userId) async {
+    developer.log('userid in _qrCodeSignIn: $userId');
     final auth = FirebaseAuth.instance;
-    final userCredential = await auth.signInWithCustomToken(userId);
-    print("Signed in as :${userCredential.user?.email}");
+    // final userCredential = await auth.signInWithCustomToken(userId);
+    final userCredential = await auth.signInWithCredential(
+      GoogleAuthProvider.credential(
+        idToken: userId, // Ensure sessionId stores a valid ID token, not UID
+      ),
+    );
 
+    developer.log("Signed in as :${userCredential.user!}");
     if (mounted) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => HomeScreen()));
+      context.go('/home');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    developer.log("sessionId: $sessionId");
     return Scaffold(
       appBar: AppBar(title: Text("Scan QR Code to Login")),
       body: Center(
@@ -74,11 +84,14 @@ class _QrLoginScreenState extends ConsumerState<QrLoginScreen> {
           children: [
             QrImageView(
               backgroundColor: Colors.white,
-              data: sessionId,
+              data: "https://k-tv-1fdcc.web.app/auth?session=$sessionId",
               size: 200,
             ),
             const SizedBox(height: 20),
-            Text("Scan with your phone to login")
+            Text(
+              "Scan with your phone to login",
+              style: TextStyle(color: Colors.white),
+            )
           ],
         ),
       ),
