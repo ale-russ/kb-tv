@@ -1,0 +1,2 @@
+C:/Users/LENOVO/Documents/kb-tv/android/app/.cxx/Debug/4z4ri561/x86/CMakeFiles/edit_cache.dir
+C:/Users/LENOVO/Documents/kb-tv/android/app/.cxx/Debug/4z4ri561/x86/CMakeFiles/rebuild_cache.dir
