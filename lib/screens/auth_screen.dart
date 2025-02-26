@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k_tv/focusable.dart';
 import 'package:k_tv/providers/auth_provider.dart';
+import 'package:k_tv/utils/platform_details.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
@@ -17,6 +18,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isLogin = true;
+
+  final PlatformDetails details = PlatformDetails();
 
   void _authenticate() {
     final auth = ref.read(authProvider.notifier);
@@ -79,18 +82,35 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     child: ElevatedButton(
                       onPressed: _authenticate,
                       child: Text(
-                        "Login",
+                        isLogin ? "Login" : "Register",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-                  // TextButton(
-                  //   onPressed: () => setState(() => isLogin = !isLogin),
-                  //   child: Text(isLogin
-                  //       ? "Create Account"
-                  //       : "Already have an account? Login"),
-                  // ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
+                  FutureBuilder(
+                      future: details.isTv(),
+                      builder: (context, snapshot) {
+                        log('snapshot: ${snapshot.data}');
+                        if (snapshot.data == false || snapshot.data == null) {
+                          return FocusableWidget(
+                            onSelect: () => {},
+                            onFocus: () => print("Items focused"),
+                            child: ElevatedButton(
+                              onPressed: () =>
+                                  setState(() => isLogin = !isLogin),
+                              child: Text(
+                                  isLogin
+                                      ? "Create Account"
+                                      : "Already have an account? Login",
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      }),
+                  const SizedBox(height: 20),
                   ElevatedButton.icon(
                     onPressed: _googleSignIn,
                     icon: Icon(
@@ -104,7 +124,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   ),
-
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () => context.push("/qr-login"),

@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final firebaseAuthProvider =
@@ -27,6 +29,7 @@ class AuthNotifier extends StateNotifier<User?> {
   }
 
   Future<void> signInWithGoogle() async {
+    log('in signin method');
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) return;
@@ -47,6 +50,7 @@ class AuthNotifier extends StateNotifier<User?> {
   }
 
   Future<void> signIn(String email, String password) async {
+    log("email: $email, password: $password");
     try {
       UserCredential _userCredentials = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -56,8 +60,9 @@ class AuthNotifier extends StateNotifier<User?> {
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await _auth.signOut();
     state = null;
+    context.pushReplacement("/");
   }
 }

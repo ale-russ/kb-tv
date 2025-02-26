@@ -13,12 +13,13 @@ class HomeScreen extends ConsumerWidget {
     final user = ref.watch(authProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            user != null ? "Welcome ${user.displayName ?? ""}" : "Welcome"),
+        title: Text(user != null
+            ? "Welcome ${user.displayName ?? user.email}"
+            : "Welcome"),
         actions: [
           ElevatedButton(
               onPressed: () {
-                ref.read(authProvider.notifier).signOut();
+                ref.read(authProvider.notifier).signOut(context);
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => AuthScreen()));
               },
