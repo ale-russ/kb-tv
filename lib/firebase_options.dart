@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '99618230636',
     projectId: 'k-tv-1fdcc',
     storageBucket: 'k-tv-1fdcc.firebasestorage.app',
-    iosClientId: '99618230636-mirpni93rp5bvlb57n3v3m8jeivhl9mb.apps.googleusercontent.com',
+    iosClientId:
+        '99618230636-mirpni93rp5bvlb57n3v3m8jeivhl9mb.apps.googleusercontent.com',
     iosBundleId: 'com.example.kTv',
   );
 
@@ -73,7 +74,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '99618230636',
     projectId: 'k-tv-1fdcc',
     storageBucket: 'k-tv-1fdcc.firebasestorage.app',
-    iosClientId: '99618230636-mirpni93rp5bvlb57n3v3m8jeivhl9mb.apps.googleusercontent.com',
+    iosClientId:
+        '99618230636-mirpni93rp5bvlb57n3v3m8jeivhl9mb.apps.googleusercontent.com',
     iosBundleId: 'com.example.kTv',
   );
 
@@ -85,5 +87,4 @@ class DefaultFirebaseOptions {
     authDomain: 'k-tv-1fdcc.firebaseapp.com',
     storageBucket: 'k-tv-1fdcc.firebasestorage.app',
   );
-
 }

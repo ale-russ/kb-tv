@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:k_tv/focusable.dart';
 import 'package:k_tv/providers/auth_provider.dart';
 
@@ -34,6 +37,16 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(authProvider);
+    log("User: $user");
+    if (user != null) {
+      WidgetsBinding.instance.addPersistentFrameCallback((_) {
+        if (mounted) {
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => HomeScreen()));
+          context.go('/home');
+        }
+      });
+    }
     return Scaffold(
       appBar:
           AppBar(title: Text(user == null ? "Auth" : "Welcome ${user.email}")),
@@ -65,37 +78,57 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     onFocus: () => print("Items focused"),
                     child: ElevatedButton(
                       onPressed: _authenticate,
-                      child: Text(isLogin ? "Login" : "Register"),
+                      child: Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () => setState(() => isLogin = !isLogin),
-                    child: Text(isLogin
-                        ? "Create Account"
-                        : "Already have an account? Login"),
-                  ),
+                  // TextButton(
+                  //   onPressed: () => setState(() => isLogin = !isLogin),
+                  //   child: Text(isLogin
+                  //       ? "Create Account"
+                  //       : "Already have an account? Login"),
+                  // ),
+                  const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: _googleSignIn,
-                    icon: Icon(Icons.login),
-                    label: Text("Sign in with Google"),
+                    icon: Icon(
+                      Icons.login,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "Sign in with Google",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  ),
+
+                  const SizedBox(height: 10),
+                  ElevatedButton.icon(
+                    onPressed: () => context.push("/qr-login"),
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => QrLoginScreen(),
+                    //   ),
+                    // ),
+                    icon: Icon(
+                      Icons.login,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "Login with QR code",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   ),
                 ],
               ),
             )
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Welcome, ${user.email}"),
-                  ElevatedButton(
-                      onPressed: () =>
-                          ref.read(authProvider.notifier).signOut(),
-                      child: Text("Log out"))
-                ],
-              ),
-            ),
+          : CircularProgressIndicator(),
     );
   }
 }
