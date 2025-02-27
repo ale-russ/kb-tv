@@ -57,19 +57,32 @@ class _QrLoginScreenState extends ConsumerState<QrLoginScreen> {
 
   Future<void> _qrCodeSignIn(String userId) async {
     developer.log('userid in _qrCodeSignIn: $userId');
-    final auth = FirebaseAuth.instance;
-    // final userCredential = await auth.signInWithCustomToken(userId);
-    final userCredential = await auth.signInWithCredential(
-      GoogleAuthProvider.credential(
-        idToken: userId, // Ensure sessionId stores a valid ID token, not UID
-      ),
-    );
 
-    developer.log("Signed in as :${userCredential.user!}");
-    if (mounted) {
-      // Navigator.of(context).pushReplacement(
-      //     MaterialPageRoute(builder: (context) => HomeScreen()));
-      context.go('/home');
+    final doc = await FirebaseFirestore.instance
+        .collection('tv_sessions')
+        .doc(sessionId)
+        .get();
+
+    developer.log("Doc: ${doc.data()}");
+
+    if (doc.exists && doc.data()?['customToken'] != null) {
+      final customToken = doc.data()?['customToken'];
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.signInWithCustomToken(customToken);
+
+        developer.log("userCredential: ${userCredential.user} ");
+
+        if (userCredential.user?.uid == userId) {
+          if (mounted) {
+            context.pushNamed("/home");
+          }
+        }
+      } catch (err) {
+        debugPrint("Login Error: $err");
+      }
+    } else {
+      debugPrint("No Valid Custom token Found");
     }
   }
 

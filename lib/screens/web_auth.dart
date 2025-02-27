@@ -36,7 +36,7 @@ class WebLoginPage extends StatelessWidget {
                   await FirebaseFirestore.instance
                       .collection('tv_sessions')
                       .doc(sessionId)
-                      .update({'userId': idToken}); // Store ID token, not UID
+                      .update({'userId': idToken}); // Store ID token
 
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(

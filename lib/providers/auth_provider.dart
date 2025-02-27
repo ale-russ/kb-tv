@@ -60,9 +60,8 @@ class AuthNotifier extends StateNotifier<User?> {
     }
   }
 
-  Future<void> signOut(BuildContext context) async {
+  Future<void> signOut() async {
     await _auth.signOut();
     state = null;
-    context.pushReplacement("/");
   }
 }
