@@ -15,6 +15,8 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     final user = ref.watch(authProvider);
     final isSidebarVisible = ref.watch(sidebarVisibilityProvider);
     final moviesAsyncValue = ref.watch(movieProvider);
@@ -92,33 +94,27 @@ class HomeScreen extends ConsumerWidget {
                           onFocus: () => print("Items $index focused"),
                           child: Card(
                               margin: const EdgeInsets.all(8),
-                              // decoration: BoxDecoration(
-                              //   borderRadius: BorderRadius.circular(8),
-                              //   color: Colors.grey,
-                              // ),
                               child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Expanded(
-                                  //   child: Image.network(
-                                  //     movie.poster,
-                                  //     fit: BoxFit.cover,
-                                  //   ),
-                                  // ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(
-                                            8)), // Optional rounded corners
-                                    child: AspectRatio(
-                                      aspectRatio: 2 /
-                                          3, // Ensures consistent image height
-                                      child: Image.network(
-                                        movie.poster,
-                                        fit: BoxFit.cover,
-                                      ),
+                                  Expanded(
+                                    child: Image.network(
+                                      movie.poster,
+                                      fit: BoxFit.cover,
+                                      width: width, height: height,
+                                      // width: 150,
+                                      // height: 90,
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  Text(movie.title)
+                                  // const SizedBox(height: 12),
+                                  Flexible(
+                                    child: Text(
+                                      movie.title,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ),
                                 ],
                               )),
                         );

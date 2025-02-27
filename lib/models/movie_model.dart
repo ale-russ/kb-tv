@@ -17,7 +17,7 @@ class Movie {
         title: json['Title'] ?? "",
         year: json['Year'] ?? "",
         imdbID: json['imdbID'] ?? "",
-        poster: json['Poster'] ?? 'https://via.placeholder.com/150',
+        poster: json['Poster'] ?? 'https://placehold.co/400',
         type: json['Type'] ?? "");
   }
 }
