@@ -12,6 +12,14 @@ class Movie {
       required this.poster,
       required this.type});
 
+  Map<String, dynamic> toJson() => {
+        'id': imdbID,
+        'title': title,
+        'poster': poster,
+        'type': type,
+        'year': year
+      };
+
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
         title: json['Title'] ?? "",

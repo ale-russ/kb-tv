@@ -31,15 +31,9 @@ class _FocusableWidgetState extends State<FocusableWidget> {
       if (_focusNode.hasFocus) {
         widget.onFocus?.call();
       } else {
-        widget.onUnFocus?.call;
+        widget.onUnFocus?.call(); // Call onUnFocus when focus is lost
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
   }
 
   @override
@@ -47,10 +41,16 @@ class _FocusableWidgetState extends State<FocusableWidget> {
     return Focus(
       focusNode: _focusNode,
       onKeyEvent: (focusNode, event) {
-        log('Focus has node: ${_focusNode.hasFocus}');
-        if (event is KeyDownEvent &&
-            event.logicalKey == LogicalKeyboardKey.select) {
+        if (event.logicalKey == LogicalKeyboardKey.select ||
+            event.logicalKey == LogicalKeyboardKey.enter) {
           widget.onSelect();
+          return KeyEventResult.handled;
+        }
+
+        // Handle Back Button (optional)
+        if (event.logicalKey == LogicalKeyboardKey.escape ||
+            event.logicalKey == LogicalKeyboardKey.goBack) {
+          log("Back button pressed");
           return KeyEventResult.handled;
         }
         setState(() {});

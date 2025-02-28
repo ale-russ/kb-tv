@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:k_tv/home.dart';
-import 'package:k_tv/screens/auth_screen.dart';
-import 'package:k_tv/screens/qr_login_screen.dart';
-import 'package:k_tv/screens/web_auth.dart';
+import 'package:k_tv/screens/home/home.dart';
+import 'package:k_tv/screens/auth/auth_screen.dart';
+import 'package:k_tv/screens/auth/qr_login_screen.dart';
+import 'package:k_tv/screens/auth/web_auth.dart';
+import 'package:k_tv/screens/home/movie/movie_details.dart';
 
 class AppRoutes {
   final GoRouter router = GoRouter(
@@ -33,6 +35,27 @@ class AppRoutes {
         path: "/home",
         name: "home",
         builder: (context, state) => HomeScreen(),
+        routes: [
+          GoRoute(
+            path: "movie-details",
+            name: "movie-details",
+            builder: (context, state) {
+              String movieId = state.uri.queryParameters['movie-id']!;
+
+              if (movieId == "") {
+                return Scaffold(
+                  body: Center(
+                    child: Text("Movie Data Is Missing"),
+                  ),
+                );
+              }
+
+              return MovieDetailsPage(
+                movieId: movieId,
+              );
+            },
+          )
+        ],
       ),
     ],
   );
