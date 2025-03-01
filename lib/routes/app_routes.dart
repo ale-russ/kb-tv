@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k_tv/models/movie_details_model.dart';
 import 'package:k_tv/screens/home/home.dart';
 import 'package:k_tv/screens/auth/auth_screen.dart';
 import 'package:k_tv/screens/auth/qr_login_screen.dart';
 import 'package:k_tv/screens/auth/web_auth.dart';
 import 'package:k_tv/screens/home/movie/movie_details.dart';
+import 'package:k_tv/screens/video/video_play.dart';
 
 class AppRoutes {
   final GoRouter router = GoRouter(
@@ -54,6 +56,15 @@ class AppRoutes {
                 movieId: movieId,
               );
             },
+            routes: [
+              GoRoute(
+                path: "video-player",
+                name: 'video-player',
+                builder: (context,state){
+                  final movie = state.extra as MovieDetailsModel;
+                return VideoPlayerPage(movieDetails: movie);
+              },),
+            ]
           )
         ],
       ),
