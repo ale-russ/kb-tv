@@ -60,13 +60,13 @@ class _FocusableWidgetState extends State<FocusableWidget> {
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           border: _focusNode.hasFocus
-              ? Border.all(color: Colors.white, width: 3)
+              ? Border.all(color: Colors.brown, width: 3)
               : null,
           borderRadius: BorderRadius.circular(8),
           boxShadow: _focusNode.hasFocus
               ? [
                   BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.brown.withOpacity(0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4))
                 ]
