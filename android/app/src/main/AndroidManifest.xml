@@ -12,7 +12,9 @@
         android:banner="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        android:hardwareAccelerated="true"
+        >
 
         <activity android:name=".MainActivity"
             android:exported="true"
@@ -30,5 +32,6 @@
             android:value="2"
             
              />
+             
     </application>
 </manifest>

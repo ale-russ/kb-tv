@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../providers/auth_provider.dart';
 import '../../providers/movei_provider.dart';
-import '../../providers/side_bar_provider.dart';
 import '../../widgets/home/side_menu.dart';
 import '../../widgets/home/movie_grid.dart';
 

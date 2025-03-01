@@ -35,13 +35,12 @@ class SideMenu extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MenuItems(icon: icons[0]),
-          MenuItems(icon: icons[1]),
-          MenuItems(icon: icons[2]),
-          MenuItems(icon: icons[3]),
-          MenuItems(icon: icons[4]),
-        ],
+        children: List.generate(
+          icons.length,
+          (index) => MenuItems(
+            icon: icons[index],
+          ),
+        ),
       ),
     );
   }

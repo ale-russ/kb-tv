@@ -57,7 +57,7 @@ class _FocusableWidgetState extends State<FocusableWidget> {
         return KeyEventResult.ignored;
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           border: _focusNode.hasFocus
               ? Border.all(color: Colors.brown, width: 3)
