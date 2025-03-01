@@ -63,10 +63,10 @@ class _QrLoginScreenState extends ConsumerState<QrLoginScreen> {
         .doc(sessionId)
         .get();
 
-    developer.log("Doc: ${doc.data()}");
+    developer.log("Doc: ${doc.data}");
 
-    if (doc.exists && doc.data()?['customToken'] != null) {
-      final customToken = doc.data()?['customToken'];
+    if (doc.exists) {
+      final customToken = doc.data()?['userId'];
       try {
         final userCredential =
             await FirebaseAuth.instance.signInWithCustomToken(customToken);

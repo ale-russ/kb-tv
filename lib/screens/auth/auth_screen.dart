@@ -20,6 +20,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   bool isLogin = true;
 
   final PlatformDetails details = PlatformDetails();
+  bool _isTV = false;
 
   void _authenticate() {
     final auth = ref.read(authProvider.notifier);
@@ -37,6 +38,26 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     ref.read(authProvider.notifier).signInWithGoogle();
   }
 
+  Future<void> _checkPlatform() async {
+    final isTV = await details.isTv();
+    setState(() {
+      _isTV = isTV;
+    });
+  }
+
+  @override
+  void initState() {
+    _checkPlatform();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(authProvider);
@@ -44,8 +65,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     if (user != null) {
       WidgetsBinding.instance.addPersistentFrameCallback((_) {
         if (mounted) {
-          // Navigator.of(context).pushReplacement(
-          //     MaterialPageRoute(builder: (context) => HomeScreen()));
           context.go('/home');
         }
       });
@@ -60,7 +79,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 children: [
                   FocusableWidget(
                     onSelect: () => {},
-                    onFocus: () => print("Items focused"),
+                    onFocus: () => log("Items focused"),
                     child: TextField(
                       controller: _emailController,
                       decoration: InputDecoration(labelText: "Email"),
@@ -68,7 +87,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   ),
                   FocusableWidget(
                     onSelect: () => {},
-                    onFocus: () => print("Items focused"),
+                    onFocus: () => log("Items focused"),
                     child: TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(labelText: "Password"),
@@ -78,7 +97,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   SizedBox(height: 20),
                   FocusableWidget(
                     onSelect: () => {},
-                    onFocus: () => print("Items focused"),
+                    onFocus: () => log("Items focused"),
                     child: ElevatedButton(
                       onPressed: _authenticate,
                       child: Text(
@@ -88,62 +107,94 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  FutureBuilder(
-                      future: details.isTv(),
-                      builder: (context, snapshot) {
-                        log('snapshot: ${snapshot.data}');
-                        if (snapshot.data == false || snapshot.data == null) {
-                          return FocusableWidget(
-                            onSelect: () => {},
-                            onFocus: () => print("Items focused"),
-                            child: ElevatedButton(
-                              onPressed: () =>
-                                  setState(() => isLogin = !isLogin),
-                              child: Text(
-                                  isLogin
-                                      ? "Create Account"
-                                      : "Already have an account? Login",
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                          );
-                        } else {
-                          return const SizedBox.shrink();
-                        }
-                      }),
+                  _isTV
+                      ? const SizedBox.shrink()
+                      : FocusableWidget(
+                          onSelect: () => {},
+                          onFocus: () => log("Items focused"),
+                          child: ElevatedButton(
+                            onPressed: () => setState(() => isLogin = !isLogin),
+                            child: Text(
+                                isLogin
+                                    ? "Create Account"
+                                    : "Already have an account? Login",
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
                   const SizedBox(height: 20),
-                  ElevatedButton.icon(
-                    onPressed: _googleSignIn,
-                    icon: Icon(
-                      Icons.login,
-                      color: Colors.white,
+                  // ElevatedButton.icon(
+                  //   onPressed: _googleSignIn,
+                  //   icon: Icon(
+                  //     Icons.login,
+                  //     color: Colors.white,
+                  //   ),
+                  //   label: Text(
+                  //     "Sign in with Google",
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  //   style:
+                  //       ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  // ),
+                  FocusableWidget(
+                    onSelect: _googleSignIn,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.login,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Sign in With Google",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
-                    label: Text(
-                      "Sign in with Google",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   ),
-                  const SizedBox(height: 10),
-                  ElevatedButton.icon(
-                    onPressed: () => context.push("/qr-login"),
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => QrLoginScreen(),
-                    //   ),
-                    // ),
-                    icon: Icon(
-                      Icons.login,
-                      color: Colors.white,
+                  const SizedBox(height: 16),
+                  FocusableWidget(
+                    onSelect: () => context.go("/qr-login"),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.qr_code,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            "Login With QR-Code",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
-                    label: Text(
-                      "Login with QR code",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   ),
+                  // ElevatedButton.icon(
+                  //   onPressed: () => context.push("/qr-login"),
+                  //   icon: Icon(
+                  //     Icons.login,
+                  //     color: Colors.white,
+                  //   ),
+                  //   label: Text(
+                  //     "Login with QR code",
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  //   style:
+                  //       ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  // ),
                 ],
               ),
             )
