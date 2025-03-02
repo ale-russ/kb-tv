@@ -12,17 +12,17 @@ class SideMenu extends ConsumerWidget {
   });
 
   final icons = [
-    Icons.person_2_rounded,
-    Icons.home_filled,
-    Icons.tv_outlined,
-    Icons.search,
-    Icons.add,
+    {"icon": Icons.person_2_rounded, "title": "User"},
+    {"icon": Icons.home_filled, "title": "Home"},
+    {"icon": Icons.tv_outlined, "title": "Movies"},
+    {"icon": Icons.search, "title": "Search"},
+    {"icon": Icons.add, "title": "Library"},
   ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    // final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
     final isSidebarVisible = ref.watch(sidebarVisibilityProvider);
     return Container(
       width: !isSidebarVisible ? 50 : 200,
@@ -38,7 +38,9 @@ class SideMenu extends ConsumerWidget {
         children: List.generate(
           icons.length,
           (index) => MenuItems(
-            icon: icons[index],
+            icon: icons[index]['icon'] as IconData,
+            title: icons[index]['title'] as String,
+            // icon: icons[index],
           ),
         ),
       ),
@@ -47,17 +49,15 @@ class SideMenu extends ConsumerWidget {
 }
 
 class MenuItems extends ConsumerWidget {
-  const MenuItems({
-    super.key,
-    required this.icon,
-  });
+  const MenuItems({super.key, required this.icon, required this.title});
 
   final IconData icon;
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    // final height = MediaQuery.of(context).size.height;
     final isSidebarVisible = ref.watch(sidebarVisibilityProvider);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -81,9 +81,22 @@ class MenuItems extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(isSidebarVisible ? 8 : 100),
             ),
-            child: Icon(
-              icon,
-              size: isSidebarVisible ? 25 : 15,
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  size: isSidebarVisible ? 25 : 15,
+                ),
+                isSidebarVisible
+                    ? const SizedBox(width: 5)
+                    : const SizedBox.shrink(),
+                isSidebarVisible
+                    ? Text(
+                        title,
+                        style: TextStyle(color: Colors.white),
+                      )
+                    : const SizedBox.shrink()
+              ],
             )),
       ),
     );

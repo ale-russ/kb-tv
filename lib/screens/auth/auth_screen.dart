@@ -77,64 +77,71 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  FocusableWidget(
-                    onSelect: () => {},
-                    onFocus: () => log("Items focused"),
-                    child: TextField(
-                      controller: _emailController,
-                      decoration: InputDecoration(labelText: "Email"),
-                    ),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(labelText: "Email"),
                   ),
-                  FocusableWidget(
-                    onSelect: () => {},
-                    onFocus: () => log("Items focused"),
-                    child: TextField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(labelText: "Password"),
-                      obscureText: true,
-                    ),
+                  TextField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(labelText: "Password"),
+                    obscureText: true,
                   ),
                   SizedBox(height: 20),
                   FocusableWidget(
-                    onSelect: () => {},
-                    onFocus: () => log("Items focused"),
-                    child: ElevatedButton(
-                      onPressed: _authenticate,
-                      child: Text(
-                        isLogin ? "Login" : "Register",
-                        style: TextStyle(color: Colors.white),
+                      onSelect: _authenticate,
+                      onFocus: () => {},
+                      child: Container(
+                        width: 120,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        child: Text(
+                          isLogin ? "Login" : "Register",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )
+                      // ElevatedButton(
+                      //   onPressed: _authenticate,
+                      //   child: Text(
+                      //     isLogin ? "Login" : "Register",
+                      //     style: TextStyle(color: Colors.white),
+                      //   ),
+                      // ),
                       ),
-                    ),
-                  ),
                   const SizedBox(height: 20),
                   _isTV
                       ? const SizedBox.shrink()
                       : FocusableWidget(
-                          onSelect: () => {},
-                          onFocus: () => log("Items focused"),
-                          child: ElevatedButton(
-                            onPressed: () => setState(() => isLogin = !isLogin),
+                          onFocus: () => {},
+                          onSelect: () => setState(() => isLogin = !isLogin),
+                          child: Container(
+                            width: 120,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.grey)),
                             child: Text(
-                                isLogin
-                                    ? "Create Account"
-                                    : "Already have an account? Login",
-                                style: TextStyle(color: Colors.white)),
+                              isLogin
+                                  ? "Create Account"
+                                  : "Already have an account? Login",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
+                  // ElevatedButton(
+                  //     onPressed: () => setState(() => isLogin = !isLogin),
+                  //     child: Text(
+                  //         isLogin
+                  //             ? "Create Account"
+                  //             : "Already have an account? Login",
+                  //         style: TextStyle(color: Colors.white)),
+                  //   ),
                   const SizedBox(height: 20),
-                  // ElevatedButton.icon(
-                  //   onPressed: _googleSignIn,
-                  //   icon: Icon(
-                  //     Icons.login,
-                  //     color: Colors.white,
-                  //   ),
-                  //   label: Text(
-                  //     "Sign in with Google",
-                  //     style: TextStyle(color: Colors.white),
-                  //   ),
-                  //   style:
-                  //       ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  // ),
+
                   FocusableWidget(
                     onSelect: _googleSignIn,
                     child: Container(
