@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class FocusableWidget extends StatefulWidget {
   const FocusableWidget({
@@ -48,11 +49,12 @@ class _FocusableWidgetState extends State<FocusableWidget> {
         }
 
         // Handle Back Button (optional)
-        if (event.logicalKey == LogicalKeyboardKey.escape ||
-            event.logicalKey == LogicalKeyboardKey.goBack) {
-          log("Back button pressed");
-          return KeyEventResult.handled;
-        }
+        // if (event.logicalKey == LogicalKeyboardKey.escape ||
+        //     event.logicalKey == LogicalKeyboardKey.goBack) {
+        //   log("Back button pressed");
+        //   context.pop();
+        //   return KeyEventResult.handled;
+        // }
         setState(() {});
         return KeyEventResult.ignored;
       },

@@ -16,6 +16,7 @@ final authProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
 
 class AuthNotifier extends StateNotifier<User?> {
   final FirebaseAuth _auth;
+
   AuthNotifier(this._auth) : super(_auth.currentUser);
 
   Future<void> signUp(String email, String password) async {

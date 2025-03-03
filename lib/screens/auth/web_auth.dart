@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class WebLoginPage extends StatelessWidget {
   final String? sessionId;
+
   const WebLoginPage({this.sessionId, super.key});
 
   @override

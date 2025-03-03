@@ -1,0 +1,1 @@
+/home/user/smart_tv_app/k_tv/build/app/intermediates/cxx/RelWithDebInfo/6w6z6w6r/obj/x86_64

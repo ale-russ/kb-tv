@@ -73,136 +73,151 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       appBar:
           AppBar(title: Text(user == null ? "Auth" : "Welcome ${user.email}")),
       body: user == null
-          ? Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(labelText: "Email"),
-                  ),
-                  TextField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(labelText: "Password"),
-                    obscureText: true,
-                  ),
-                  SizedBox(height: 20),
-                  FocusableWidget(
-                      onSelect: _authenticate,
-                      onFocus: () => {},
-                      child: Container(
-                        width: 120,
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        child: Text(
-                          isLogin ? "Login" : "Register",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                      // ElevatedButton(
-                      //   onPressed: _authenticate,
-                      //   child: Text(
-                      //     isLogin ? "Login" : "Register",
-                      //     style: TextStyle(color: Colors.white),
-                      //   ),
-                      // ),
-                      ),
-                  const SizedBox(height: 20),
-                  _isTV
-                      ? const SizedBox.shrink()
-                      : FocusableWidget(
-                          onFocus: () => {},
-                          onSelect: () => setState(() => isLogin = !isLogin),
-                          child: Container(
-                            width: 120,
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.grey)),
-                            child: Text(
-                              isLogin
-                                  ? "Create Account"
-                                  : "Already have an account? Login",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (!_isTV)
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: 400,
+                            child: TextField(
+                              controller: _emailController,
+                              decoration: InputDecoration(labelText: "Email"),
                             ),
                           ),
-                        ),
-                  // ElevatedButton(
-                  //     onPressed: () => setState(() => isLogin = !isLogin),
-                  //     child: Text(
-                  //         isLogin
-                  //             ? "Create Account"
-                  //             : "Already have an account? Login",
-                  //         style: TextStyle(color: Colors.white)),
-                  //   ),
-                  const SizedBox(height: 20),
+                          SizedBox(
+                            width: 400,
+                            child: TextField(
+                              controller: _passwordController,
+                              decoration:
+                                  InputDecoration(labelText: "Password"),
+                              obscureText: true,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          FocusableWidget(
+                              onSelect: _authenticate,
+                              onFocus: () => {},
+                              child: Container(
+                                width: 120,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey),
+                                ),
+                                child: Text(
+                                  isLogin ? "Login" : "Register",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                              // ElevatedButton(
+                              //   onPressed: _authenticate,
+                              //   child: Text(
+                              //     isLogin ? "Login" : "Register",
+                              //     style: TextStyle(color: Colors.white),
+                              //   ),
+                              // ),
+                              ),
+                        ],
+                      ),
+                    const SizedBox(height: 20),
+                    _isTV
+                        ? const SizedBox.shrink()
+                        : FocusableWidget(
+                            onFocus: () => {},
+                            onSelect: () => setState(() => isLogin = !isLogin),
+                            child: Container(
+                              width: 120,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey)),
+                              child: Text(
+                                isLogin
+                                    ? "Create Account"
+                                    : "Already have an account? Login",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                    // ElevatedButton(
+                    //     onPressed: () => setState(() => isLogin = !isLogin),
+                    //     child: Text(
+                    //         isLogin
+                    //             ? "Create Account"
+                    //             : "Already have an account? Login",
+                    //         style: TextStyle(color: Colors.white)),
+                    //   ),
+                    const SizedBox(height: 20),
 
-                  FocusableWidget(
-                    onSelect: _googleSignIn,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      width: 200,
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.login,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            "Sign in With Google",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                    FocusableWidget(
+                      onSelect: _googleSignIn,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        width: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.login,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              "Sign in With Google",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  FocusableWidget(
-                    onSelect: () => context.go("/qr-login"),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      width: 200,
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.qr_code,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            "Login With QR-Code",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                    const SizedBox(height: 16),
+                    FocusableWidget(
+                      onSelect: () => context.go("/qr-login"),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        width: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.qr_code,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              "Login With QR-Code",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // ElevatedButton.icon(
-                  //   onPressed: () => context.push("/qr-login"),
-                  //   icon: Icon(
-                  //     Icons.login,
-                  //     color: Colors.white,
-                  //   ),
-                  //   label: Text(
-                  //     "Login with QR code",
-                  //     style: TextStyle(color: Colors.white),
-                  //   ),
-                  //   style:
-                  //       ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  // ),
-                ],
+                    // ElevatedButton.icon(
+                    //   onPressed: () => context.push("/qr-login"),
+                    //   icon: Icon(
+                    //     Icons.login,
+                    //     color: Colors.white,
+                    //   ),
+                    //   label: Text(
+                    //     "Login with QR code",
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    //   style:
+                    //       ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    // ),
+                  ],
+                ),
               ),
             )
           : CircularProgressIndicator(),

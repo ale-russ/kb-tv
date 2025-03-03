@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>AUTH Login</title>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
-  </head>
-  <body>
-    <h1>Login to TV App</h1>
-    <button id="googleSignIn">Sign in with Google</button>
+</head>
+<body>
+<h1>Login to TV App</h1>
+<button id="googleSignIn">Sign in with Google</button>
 
-    <script>
-      // Firebase Configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyAuhmbFMoSWC7Qt4VcM9_g7SWRDb7AO2DQ",
-        authDomain: "k-tv-1fdcc.firebaseapp.com",
-        projectId: "k-tv-1fdcc",
-        storageBucket: "k-tv-1fdcc.firebasestorage.app",
-        messagingSenderId: "99618230636",
-        appId: "1:99618230636:web:2cd4870c47c86f40f72349",
-      };
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAuhmbFMoSWC7Qt4VcM9_g7SWRDb7AO2DQ",
+      authDomain: "k-tv-1fdcc.firebaseapp.com",
+      projectId: "k-tv-1fdcc",
+      storageBucket: "k-tv-1fdcc.firebasestorage.app",
+      messagingSenderId: "99618230636",
+      appId: "1:99618230636:web:2cd4870c47c86f40f72349",
+    };
 
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-      // Get session ID from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const sessionId = urlParams.get("session");
+    // Get session ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get("session");
 
-      document
-        .getElementById("googleSignIn")
-        .addEventListener("click", async () => {
-          try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            // const result = await auth.signInWithPopup(provider);
-            const result = await auth.siginInWithRedirect(provider);
+    document
+      .getElementById("googleSignIn")
+      .addEventListener("click", async () => {
+        try {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          // const result = await auth.signInWithPopup(provider);
+          const result = await auth.siginInWithRedirect(provider);
 
-            // Store user ID in Firestore
-            if (sessionId) {
-              await db.collection("tv_sessions").doc(sessionId).update({
-                userId: result.user.uid,
-              });
-              alert("Login successful! Return to your TV.");
-            }
-          } catch (error) {
-            console.error("Login failed", error);
+          // Store user ID in Firestore
+          if (sessionId) {
+            await db.collection("tv_sessions").doc(sessionId).update({
+              userId: result.user.uid,
+            });
+            alert("Login successful! Return to your TV.");
           }
-        });
-    </script>
-  </body>
+        } catch (error) {
+          console.error("Login failed", error);
+        }
+      });
+</script>
+</body>
 </html>

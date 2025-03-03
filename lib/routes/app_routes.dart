@@ -39,33 +39,33 @@ class AppRoutes {
         builder: (context, state) => HomeScreen(),
         routes: [
           GoRoute(
-            path: "movie-details",
-            name: "movie-details",
-            builder: (context, state) {
-              String movieId = state.uri.queryParameters['movie-id']!;
+              path: "movie-details",
+              name: "movie-details",
+              builder: (context, state) {
+                String movieId = state.uri.queryParameters['movie-id']!;
 
-              if (movieId == "") {
-                return Scaffold(
-                  body: Center(
-                    child: Text("Movie Data Is Missing"),
-                  ),
+                if (movieId == "") {
+                  return Scaffold(
+                    body: Center(
+                      child: Text("Movie Data Is Missing"),
+                    ),
+                  );
+                }
+
+                return MovieDetailsPage(
+                  movieId: movieId,
                 );
-              }
-
-              return MovieDetailsPage(
-                movieId: movieId,
-              );
-            },
-            routes: [
-              GoRoute(
-                path: "video-player",
-                name: 'video-player',
-                builder: (context,state){
-                  final movie = state.extra as MovieDetailsModel;
-                return VideoPlayerPage(movieDetails: movie);
-              },),
-            ]
-          )
+              },
+              routes: [
+                GoRoute(
+                  path: "video-player",
+                  name: 'video-player',
+                  builder: (context, state) {
+                    final movie = state.extra as MovieDetailsModel;
+                    return VideoPlayerPage(movieDetails: movie);
+                  },
+                ),
+              ])
         ],
       ),
     ],

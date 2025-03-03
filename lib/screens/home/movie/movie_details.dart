@@ -17,26 +17,24 @@ class MovieDetailsPage extends ConsumerStatefulWidget {
 
 class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
   bool isPosterSelected = false;
+
   @override
   Widget build(BuildContext context) {
-    log("movieId: ${widget.movieId}");
     final movieDetails = ref.watch(movieInfoProvider(widget.movieId));
 
     return movieDetails.when(
       data: (movie) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(movie.title),
-            automaticallyImplyLeading: false,
-          ),
+              title: Text(movie.title), automaticallyImplyLeading: false),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  Stack(
-                    alignment: Alignment.center,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FocusableWidget(
                         onSelect: () {
@@ -73,60 +71,61 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                           ),
                         ),
                       ),
-                      if (isPosterSelected)
-                        Center(
-                          child: Positioned(
-                              // left: MediaQuery.of(context).size.width * 0.5,
-                              child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.7),
-                                shape: BoxShape.circle),
-                            child: Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                            ),
-                          )),
-                        )
+                      // if (isPosterSelected)
+
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Container(
+                          constraints: BoxConstraints(minHeight: 200),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.brown),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                movie.title,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text("Year: ${movie.year}",
+                                  style: const TextStyle(fontSize: 18)),
+                              Text("Rated: ${movie.rated}",
+                                  style: const TextStyle(fontSize: 18)),
+                              Text("Release Date: ${movie.released}",
+                                  style: const TextStyle(fontSize: 18)),
+                              Text("Director: ${movie.director}",
+                                  style: const TextStyle(fontSize: 18)),
+                              Text("Writer: ${movie.writer}",
+                                  style: const TextStyle(fontSize: 18)),
+                              Text("Actors: ${movie.actors}",
+                                  style: const TextStyle(fontSize: 18)),
+                              Text("Genre: ${movie.genre}",
+                                  style: const TextStyle(fontSize: 18)),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Container(
-                      constraints: BoxConstraints(minHeight: 200),
-                      padding: const EdgeInsets.all(16),
+                  Center(
+                    child: Positioned(
+                        // left: MediaQuery.of(context).size.width * 0.5,
+                        child: Container(
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.brown),
+                          color: Colors.black.withOpacity(0.7),
+                          shape: BoxShape.circle),
+                      child: Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            movie.title,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text("Year: ${movie.year}",
-                              style: const TextStyle(fontSize: 18)),
-                          Text("Rated: ${movie.rated}",
-                              style: const TextStyle(fontSize: 18)),
-                          Text("Release Date: ${movie.released}",
-                              style: const TextStyle(fontSize: 18)),
-                          Text("Director: ${movie.director}",
-                              style: const TextStyle(fontSize: 18)),
-                          Text("Writer: ${movie.writer}",
-                              style: const TextStyle(fontSize: 18)),
-                          Text("Actors: ${movie.actors}",
-                              style: const TextStyle(fontSize: 18)),
-                          Text("Genre: ${movie.genre}",
-                              style: const TextStyle(fontSize: 18)),
-                        ],
-                      ),
-                    ),
+                    )),
                   ),
                 ],
               ),
