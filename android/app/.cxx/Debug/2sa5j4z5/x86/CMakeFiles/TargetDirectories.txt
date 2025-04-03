@@ -1,0 +1,2 @@
+/home/user/StudioProjects/kb-tv/android/app/.cxx/Debug/2sa5j4z5/x86/CMakeFiles/edit_cache.dir
+/home/user/StudioProjects/kb-tv/android/app/.cxx/Debug/2sa5j4z5/x86/CMakeFiles/rebuild_cache.dir

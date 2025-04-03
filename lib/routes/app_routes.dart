@@ -20,7 +20,7 @@ class AppRoutes {
             name: "qr-login",
             builder: (context, state) {
               final sessionId = state.uri.queryParameters['session'];
-              return QrLoginScreen(sessionId: sessionId);
+              return QrLoginScreen();
             },
           ),
           GoRoute(
@@ -28,7 +28,7 @@ class AppRoutes {
             name: "auth",
             builder: (context, state) {
               final sessionId = state.uri.queryParameters['session'];
-              return WebLoginPage(sessionId: sessionId);
+              return WebLoginPage();
             },
           ),
         ],

@@ -41,50 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAuhmbFMoSWC7Qt4VcM9_g7SWRDb7AO2DQ',
-    appId: '1:99618230636:web:2cd4870c47c86f40f72349',
-    messagingSenderId: '99618230636',
-    projectId: 'k-tv-1fdcc',
-    authDomain: 'k-tv-1fdcc.firebaseapp.com',
-    storageBucket: 'k-tv-1fdcc.firebasestorage.app',
+    apiKey: 'AIzaSyBuBZKruGPPjeWCN_QUwSZZUKrDr30Xz8k',
+    appId: '1:766637910063:web:abe20529369b08c19c3eda',
+    messagingSenderId: '766637910063',
+    projectId: 'k-tv-e03dc',
+    authDomain: 'k-tv-e03dc.firebaseapp.com',
+    storageBucket: 'k-tv-e03dc.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDs-ZsOOxhowD36T_2AilWJSxbMavEcz5g',
-    appId: '1:99618230636:android:be0cccf64c55f67cf72349',
-    messagingSenderId: '99618230636',
-    projectId: 'k-tv-1fdcc',
-    storageBucket: 'k-tv-1fdcc.firebasestorage.app',
+    apiKey: 'AIzaSyDESzY1bAUAAveeblUZYkPo92gBLIYSTdc',
+    appId: '1:766637910063:android:997170deae4b93ab9c3eda',
+    messagingSenderId: '766637910063',
+    projectId: 'k-tv-e03dc',
+    storageBucket: 'k-tv-e03dc.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBk2JCbk1QbRxeqIjr8wkgd4Y7dhUMw4ZE',
-    appId: '1:99618230636:ios:de8ec77571c5d4a2f72349',
-    messagingSenderId: '99618230636',
-    projectId: 'k-tv-1fdcc',
-    storageBucket: 'k-tv-1fdcc.firebasestorage.app',
-    iosClientId:
-        '99618230636-mirpni93rp5bvlb57n3v3m8jeivhl9mb.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBgZm0GqoxXEFTh3pyVKGCz7KLfUbcItVo',
+    appId: '1:766637910063:ios:b49101c62d8f7e029c3eda',
+    messagingSenderId: '766637910063',
+    projectId: 'k-tv-e03dc',
+    storageBucket: 'k-tv-e03dc.firebasestorage.app',
+    iosClientId: '766637910063-cejevtohejlqq1tugh1p1hg8er73d7i4.apps.googleusercontent.com',
     iosBundleId: 'com.example.kTv',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBk2JCbk1QbRxeqIjr8wkgd4Y7dhUMw4ZE',
-    appId: '1:99618230636:ios:de8ec77571c5d4a2f72349',
-    messagingSenderId: '99618230636',
-    projectId: 'k-tv-1fdcc',
-    storageBucket: 'k-tv-1fdcc.firebasestorage.app',
-    iosClientId:
-        '99618230636-mirpni93rp5bvlb57n3v3m8jeivhl9mb.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBgZm0GqoxXEFTh3pyVKGCz7KLfUbcItVo',
+    appId: '1:766637910063:ios:b49101c62d8f7e029c3eda',
+    messagingSenderId: '766637910063',
+    projectId: 'k-tv-e03dc',
+    storageBucket: 'k-tv-e03dc.firebasestorage.app',
+    iosClientId: '766637910063-cejevtohejlqq1tugh1p1hg8er73d7i4.apps.googleusercontent.com',
     iosBundleId: 'com.example.kTv',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAuhmbFMoSWC7Qt4VcM9_g7SWRDb7AO2DQ',
-    appId: '1:99618230636:web:557cc50fcd29368cf72349',
-    messagingSenderId: '99618230636',
-    projectId: 'k-tv-1fdcc',
-    authDomain: 'k-tv-1fdcc.firebaseapp.com',
-    storageBucket: 'k-tv-1fdcc.firebasestorage.app',
+    apiKey: 'AIzaSyBuBZKruGPPjeWCN_QUwSZZUKrDr30Xz8k',
+    appId: '1:766637910063:web:51422eb78c1a1b6b9c3eda',
+    messagingSenderId: '766637910063',
+    projectId: 'k-tv-e03dc',
+    authDomain: 'k-tv-e03dc.firebaseapp.com',
+    storageBucket: 'k-tv-e03dc.firebasestorage.app',
   );
+
 }
