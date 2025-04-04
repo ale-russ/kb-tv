@@ -1,109 +1,3 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TV Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import {
-        getAuth,
-        GoogleAuthProvider,
-        signInWithPopup,
-        signInWithRedirect,
-        getRedirectResult,
-      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import {
-        getFirestore,
-        doc,
-        updateDoc,
-      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyBuBZKruGPPjeWCN_QUwSZZUKrDr30Xz8k",
-        authDomain: "k-tv-e03dc.firebaseapp.com",
-        projectId: "k-tv-e03dc",
-        storageBucket: "k-tv-e03dc.firebasestorage.app",
-        messagingSenderId: "766637910063",
-        appId: "1:766637910063:web:abe20529369b08c19c3eda",
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
-
-      window.addEventListener("DOMContentLoaded", () => {
-        const signInButton = document.getElementById("googleSignIn");
-        const urlParams = new URLSearchParams(window.location.search);
-        const sessionId = urlParams.get("session");
-
-        signInButton.addEventListener("click", async () => {
-          console.log("Sign-in button clicked");
-
-          try {
-            const googleProvider = new GoogleAuthProvider();
-            const result = await signInWithPopup(auth, googleProvider);
-
-            console.log("Signed in user:", result.user.uid);
-
-            if (sessionId) {
-              const sessionRef = doc(db, "tv_sessions", sessionId);
-              await updateDoc(sessionRef, {
-                userId: result.user.uid,
-              });
-
-              alert("Login successful! Return to your TV.");
-            } else {
-              alert("No session ID found.");
-            }
-          } catch (error) {
-            console.error("Login failed", error);
-            alert("Login failed. Check the console for details.");
-          }
-        });
-      });
-    </script>
-
-    <style>
-      body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-family: sans-serif;
-        background: #f4f4f8;
-      }
-
-      h1 {
-        margin-bottom: 24px;
-        color: #333;
-      }
-
-      button {
-        padding: 12px 20px;
-        font-size: 16px;
-        background-color: #4285f4;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.2s ease;
-      }
-
-      button:hover {
-        background-color: #357ae8;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Login to TV App</h1>
-    <button id="googleSignIn">Sign in with Google</button>
-  </body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -127,7 +21,7 @@
         setDoc,
       } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-      // Your Firebase config
+      // Firebase config
       const firebaseConfig = {
         apiKey: "AIzaSyBuBZKruGPPjeWCN_QUwSZZUKrDr30Xz8k",
         authDomain: "k-tv-e03dc.firebaseapp.com",
