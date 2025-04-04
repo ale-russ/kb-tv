@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k_tv/models/movie_details_model.dart';
@@ -20,6 +22,7 @@ class AppRoutes {
             name: "qr-login",
             builder: (context, state) {
               final sessionId = state.uri.queryParameters['session'];
+              log("SessionId: $sessionId");
               return QrLoginScreen();
             },
           ),
@@ -28,6 +31,7 @@ class AppRoutes {
             name: "auth",
             builder: (context, state) {
               final sessionId = state.uri.queryParameters['session'];
+              log("sessionId: $sessionId");
               return WebLoginPage();
             },
           ),
